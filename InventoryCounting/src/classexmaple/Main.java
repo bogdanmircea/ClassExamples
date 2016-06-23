@@ -19,6 +19,29 @@ public class Main {
 		productList.add(new Product(ProductType.FLOPPY_DISK));
 		productList.add(new Product(ProductType.WALKMEN));
 
+		Map<ProductType, Integer> inventoryCount = countProductTypes(productList);
+
+		System.out.println(inventoryCount);
+
+		ProductType mostCommonType = getMostCommonProductType(inventoryCount);
+		
+		System.out.println(mostCommonType);
+
+	}
+
+	private static ProductType getMostCommonProductType(Map<ProductType, Integer> inventoryCount) {
+		int maxCount = 0;
+		ProductType mostCommonType = null;
+		for (Entry<ProductType, Integer> entry : inventoryCount.entrySet()) {
+			if (entry.getValue() > maxCount) {
+				maxCount = entry.getValue();
+				mostCommonType = entry.getKey();
+			}
+		}
+		return mostCommonType;
+	}
+
+	private static Map<ProductType, Integer> countProductTypes(List<Product> productList) {
 		Map<ProductType, Integer> inventoryCount = new HashMap<ProductType, Integer>();
 		Iterator<Product> iterator = productList.iterator();
 
@@ -34,18 +57,7 @@ public class Main {
 				inventoryCount.put(pt, 1);
 			}
 		}
-		System.out.println(inventoryCount);
-		
-		int maxCount = 0;
-		ProductType mostCommonType = null;
-		for (Entry<ProductType, Integer> entry : inventoryCount.entrySet()) {
-			if(entry.getValue()>maxCount){
-				maxCount = entry.getValue();
-				mostCommonType = entry.getKey();
-			}
-		}
-		System.out.println(mostCommonType);
-
+		return inventoryCount;
 	}
 
 }
